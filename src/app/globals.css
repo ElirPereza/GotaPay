@@ -31,3 +31,12 @@ html, body, :root{
     --radius: 0.5rem;
   }
 }
+
+@layer base{
+  body{
+    @apply font-primary dark:bg-primary dark:text-white leading-loose;
+        
+  }
+}
+
+

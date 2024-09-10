@@ -1,10 +1,26 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import localFont from "next/font/local"
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/providers/query.provider";
 
-const inter = Inter({ subsets: ["latin"] });
+// Configuración de TT Norms Pro como fuente local
+const ttNormsPro = localFont({
+  src: [
+    {
+      path: "../../public/fonts/TT-Norms-Pro-Regular.otf",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/TT-Norms-Pro-Bold.otf",
+      weight: "700",
+      style: "bold",
+    },
+  ],
+  variable: "--font-tt-norms-pro",
+});
+
 
 export const metadata: Metadata = {
   title: "GOTAPAY",
@@ -19,7 +35,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={ttNormsPro.className}>
           <QueryProvider>{children}</QueryProvider>
         </body>
       </html>
