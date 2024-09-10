@@ -383,6 +383,130 @@ const swaggerSpec = {
         },
       },
     },
+    "/api/subscription": {
+      get: {
+        summary: "Get all subscriptions",
+        description: "Retrieve a list of all subscriptions",
+        responses: {
+          "200": {
+            description: "A list of subscriptions",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "array",
+                  items: { $ref: "#/components/schemas/Subscription" },
+                },
+              },
+            },
+          },
+        },
+      },
+      post: {
+        summary: "Create a new subscription",
+        description: "Add a new subscription to the system",
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/Subscription" },
+            },
+          },
+        },
+        responses: {
+          "201": {
+            description: "Subscription created successfully",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Subscription" },
+              },
+            },
+          },
+        },
+      },
+    },
+    "/api/subscription/{id}": {
+      get: {
+        summary: "Get a subscription by ID",
+        description: "Retrieve a single subscription by its ID",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "ID of the subscription",
+            schema: { type: "integer" },
+          },
+        ],
+        responses: {
+          "200": {
+            description: "A single subscription",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Subscription" },
+              },
+            },
+          },
+          "404": {
+            description: "Subscription not found",
+          },
+        },
+      },
+      put: {
+        summary: "Update a subscription by ID",
+        description: "Update the details of an existing subscription",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "ID of the subscription to update",
+            schema: { type: "integer" },
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            "application/json": {
+              schema: { $ref: "#/components/schemas/Subscription" },
+            },
+          },
+        },
+        responses: {
+          "200": {
+            description: "Subscription updated successfully",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/Subscription" },
+              },
+            },
+          },
+          "404": {
+            description: "Subscription not found",
+          },
+        },
+      },
+      delete: {
+        summary: "Delete a subscription by ID",
+        description: "Remove a subscription from the system",
+        parameters: [
+          {
+            name: "id",
+            in: "path",
+            required: true,
+            description: "ID of the subscription to delete",
+            schema: { type: "integer" },
+          },
+        ],
+        responses: {
+          "204": {
+            description: "Subscription deleted successfully",
+          },
+          "404": {
+            description: "Subscription not found",
+          },
+        },
+      },
+    },
   },
 
   components: {
@@ -498,6 +622,16 @@ const swaggerSpec = {
           },
         },
         required: ["amount", "date", "loanId"],
+      },
+      Subscription: {
+        type: "object",
+        properties: {
+          id: { type: "integer" },
+          userId: { type: "string" },
+          plan: { type: "string", enum: ["STANDARD", "PRO", "ULTIMATE"] },
+          createdAt: { type: "string", format: "date-time" },
+          updatedAt: { type: "string", format: "date-time" },
+        },
       },
     },
   },

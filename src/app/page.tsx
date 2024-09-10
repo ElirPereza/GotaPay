@@ -3,9 +3,10 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div>
+    <div className="h-screen flex flex-col justify-center items-center">
       hola mundo
-      <ThemeToggle/>
+      <h1>aqui va una landpage</h1>
+      <ThemeToggle />
     </div>
   );
 }
