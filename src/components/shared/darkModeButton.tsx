@@ -1,42 +1,45 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useThemeMode } from '@/hooks/theme/useTheme';
 
 export default function EnhancedThemeToggle() {
-  const [isDark, setIsDark] = useState(false)
-  const { setTheme } = useThemeMode();
+  const { setTheme, resolvedTheme } = useThemeMode();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  console.log(isDark)
-
+ 
   const toggleTheme = () => {
-    setIsDark(!isDark)
-    setTheme(isDark? 'light' : 'dark')  
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')  
   }
+
+  if (!mounted) return null; 
 
   return (
     <motion.div
     className={`w-20 h-10 rounded-full p-1 cursor-pointer flex items-center ${
-      isDark ? 'justify-end' : 'justify-start'
+      resolvedTheme === 'dark' ? 'justify-end' : 'justify-start'
     }`}
     style={{
-      backgroundColor: isDark ? '#1e1e2e' : '#8533FF',
+      backgroundColor: resolvedTheme === 'dark' ? '#1e1e2e' : '#8533FF',
     }}
     onClick={toggleTheme}
-    animate={{ backgroundColor: isDark ? '#1e1e2e' : '#8533FF' }}
+    animate={{ backgroundColor: resolvedTheme === 'dark' ? '#1e1e2e' : '#8533FF' }}
     transition={{ duration: 0.3 }}
   >
     <motion.div
       className="w-8 h-8 rounded-full flex items-center justify-center"
       animate={{
-        backgroundColor: isDark ? '#2d2d3f' : '#9f66ff',
-        rotate: isDark ? 360 : 0,
+        backgroundColor: resolvedTheme === 'dark' ? '#2d2d3f' : '#9f66ff',
+        rotate: resolvedTheme === 'dark' ? 360 : 0,
       }}
       transition={{ duration: 0.3 }}
     >
-      {isDark ? (
+      {resolvedTheme === 'dark' ? (
         <motion.svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
