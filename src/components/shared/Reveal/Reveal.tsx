@@ -17,7 +17,7 @@ export const fadeIn = (position: string, delay?: number) => {
       },
     },
     hidden: {
-      y: position === "bottom" ? -80 : 0,
+      y: position === "bottom" ? -80 : position === "up" ?  80 : 0,
       x: position === "right" ? 80 : position === "left" ? -80 : 0,
       opacity: 0,
       transition: {
