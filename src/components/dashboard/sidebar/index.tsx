@@ -7,6 +7,7 @@ import NavItem from "./navitems";
 import LogoSidebar from "./logotoogle";
 import UserProfile from "./userprofile";
 import useApp from "@/hooks/store/useApp";
+import CardBalance from "./cardbalance";
 
 export default function Sidebar() {
   const { currentRoute, isSidebarOpen, setCurrentRoute } = useApp();
@@ -16,8 +17,8 @@ export default function Sidebar() {
       {/* NAV DESKTOP */}
       <aside
         className={cn(
-          "h-screen inset-y-0 left-0 z-50  transform transition-all duration-300 ease-in-out border-r border-accent/40",
-          isSidebarOpen ? "w-80" : "w-24"
+          "h-screen inset-y-0 left-0 z-50 transform transition-all duration-300 ease-in-out border-r border-accent",
+          isSidebarOpen ? "w-80" : "w-24",
         )}
       >
         <div className="flex h-full flex-col">
@@ -38,6 +39,7 @@ export default function Sidebar() {
               ))}
             </ul>
           </nav>
+          {/* CURRENT BALANCE */}
 
           {/* User profile */}
           <UserProfile isSidebarOpen={isSidebarOpen} />

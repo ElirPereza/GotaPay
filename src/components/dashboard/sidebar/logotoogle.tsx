@@ -7,13 +7,17 @@ import React from "react";
 const LogoToggle = () => {
   const { toggleSidebar, isSidebarOpen } = useApp();
   return (
-    <div className=" relative flex h-20 items-center border-b border-accent/40 px-4">
-      <a
-        href="#"
-        className="flex items-center gap-8 font-semibold"
-      >
+    <div className=" relative flex h-20 items-center border-b border-accent px-4">
+      <a href="#" className="flex items-center gap-8 font-semibold">
         <div className="w-16 h-12  bg-accent rounded-full" />
-        <span className={cn("text-2xl origin-left duration-300", isSidebarOpen? "" : "scale-0")}>GotaPay</span>
+        <span
+          className={cn(
+            "text-2xl origin-left duration-300",
+            isSidebarOpen ? "" : "scale-0",
+          )}
+        >
+          GotaPay
+        </span>
       </a>
       <Button
         variant={"ghost"}
@@ -23,7 +27,7 @@ const LogoToggle = () => {
         <X
           className={cn(
             "h-5 w-5 items-center absolute ",
-            isSidebarOpen ? "" : " rotate-45"
+            isSidebarOpen ? "" : " rotate-45",
           )}
         />
       </Button>

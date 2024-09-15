@@ -3,63 +3,63 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
-        
+
 model User {
-  id            String          @id @default(cuid()) // Unique ID automatically generated
-  clerkId       String          @unique              // User ID in Clerk
-  email         String          @unique              // User email
-  role          Role            @default(USER)       // User role
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  
-  clients       Client[]        // Relationship with clients managed (if applicable)
+  id        String   @id @default(cuid()) // Unique ID automatically generated
+  clerkId   String   @unique // User ID in Clerk
+  email     String   @unique // User email
+  role      Role     @default(USER) // User role
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  clients       Client[] // Relationship with clients managed (if applicable)
   subscriptions Subscription[] // Relationship with subscriptions
 }
 
 model Client {
-  id          Int         @id @default(autoincrement())
-  name        String
-  email       String      @unique
-  loans       Loan[]
-  payments    Payment[]
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  user        User?       @relation(fields: [userId], references: [id])
-  userId      String?
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  loans     Loan[]
+  payments  Payment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
 }
 
 model Loan {
-  id          Int       @id @default(autoincrement())
-  amount      Float
+  id           Int       @id @default(autoincrement())
+  amount       Float
   interestRate Float
-  clientId    Int
-  client      Client    @relation(fields: [clientId], references: [id])
-  startDate   DateTime
-  endDate     DateTime
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  payments    Payment[]
+  clientId     Int
+  client       Client    @relation(fields: [clientId], references: [id])
+  startDate    DateTime
+  endDate      DateTime
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  payments     Payment[]
 }
 
 model Payment {
-  id          Int       @id @default(autoincrement())
-  amount      Float
-  date        DateTime
-  loanId      Int
-  loan        Loan      @relation(fields: [loanId], references: [id])
-  clientId    Int?
-  client      Client?   @relation(fields: [clientId], references: [id])
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  date      DateTime
+  loanId    Int
+  loan      Loan     @relation(fields: [loanId], references: [id])
+  clientId  Int?
+  client    Client?  @relation(fields: [clientId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Subscription {
-  id        Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   userId    String
-  user      User   @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
   plan      Plans
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
