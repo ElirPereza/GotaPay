@@ -1,6 +1,5 @@
 "use client";
-import ModernChart from "@/components/dashboard/charts/chartCard";
-import ChartCard from "@/components/dashboard/charts/chartCard";
+
 import TransactionTable from "@/components/dashboard/cards/last-transaction";
 import LastTransaction, {
   Transaction,
@@ -9,6 +8,8 @@ import TotalCard from "@/components/dashboard/cards/totalcard";
 import WorkerDistributionChart, {
   WorkerData,
 } from "@/components/dashboard/charts/chartTotal";
+import IncomeCharts from "@/components/dashboard/charts/incomecharts";
+import SummaryChart from "@/components/dashboard/charts/summarychart";
 
 const dataCard = [
   { title: "Total Users", value: "10,928", change: "+12%" },
@@ -70,8 +71,10 @@ const workerData: WorkerData[] = [
 ];
 const totalAmount = 15000000; // $15 million
 
+
 const Dashboard = () => {
   const theme = "dark";
+  
   return (
     <div
       className={`min-h-screen ${
@@ -82,21 +85,16 @@ const Dashboard = () => {
         {/* Main Content */}
         <main className="flex-1 flex flex-col px-10 gap-8">
           <TotalCard data={dataCard} />
-          <ModernChart
-            data={data}
-            title="Sales and Revenue over Time"
-            xAxisKey="date"
-            series={series}
-          />
+          <IncomeCharts/>
           <TransactionTable
             transactions={transactions}
             title="Latest Transactions"
           />
-
-          <WorkerDistributionChart
+          <SummaryChart/>
+          {/* <WorkerDistributionChart
             data={workerData}
             totalAmount={totalAmount}
-          />
+          /> */}
         </main>
       </div>
     </div>
