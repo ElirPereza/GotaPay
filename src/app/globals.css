@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body, :root{
+  height: 100%;
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -27,3 +31,12 @@
     --radius: 0.5rem;
   }
 }
+
+@layer base{
+  body{
+    @apply font-primary dark:bg-primary dark:text-white leading-loose;
+        
+  }
+}
+
+

@@ -1,54 +1,78 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
-        
+
 model User {
   id        String   @id @default(cuid()) // Unique ID automatically generated
-  clerkId   String   @unique              // User ID in Clerk
-  email     String   @unique              // User email
-  role      Role     @default(USER)       // User role
+  clerkId   String   @unique // User ID in Clerk
+  email     String   @unique // User email
+  role      Role     @default(USER) // User role
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  clients   Client[]                     // Relationship with clients managed (if applicable)
+
+  clients       Client[] // Relationship with clients managed (if applicable)
+  subscriptions Subscription[] // Relationship with subscriptions
 }
 
 model Client {
-  id         Int        @id @default(autoincrement()) // Unique auto-incremented ID
-  name       String
-  email      String     @unique
-  loans      Loan[]                            // Relationship with loans
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  userId     String?
-  user       User?      @relation(fields: [userId], references: [id]) // Optional relationship with User
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  loans     Loan[]
+  payments  Payment[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  user      User?     @relation(fields: [userId], references: [id])
+  userId    String?
 }
 
 model Loan {
-  id          Int       @id @default(autoincrement())
-  amount      Float
+  id           Int       @id @default(autoincrement())
+  amount       Float
   interestRate Float
-  clientId    Int
-  client      Client   @relation(fields: [clientId], references: [id])
-  startDate   DateTime
-  endDate     DateTime
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  clientId     Int
+  client       Client    @relation(fields: [clientId], references: [id])
+  startDate    DateTime
+  endDate      DateTime
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  payments     Payment[]
+}
+
+model Payment {
+  id        Int      @id @default(autoincrement())
+  amount    Float
+  date      DateTime
+  loanId    Int
+  loan      Loan     @relation(fields: [loanId], references: [id])
+  clientId  Int?
+  client    Client?  @relation(fields: [clientId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  plan      Plans
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum Role {
   OWNER
   ADMIN
   USER
+}
+
+enum Plans {
+  STANDARD
+  PRO
+  ULTIMATE
 }
