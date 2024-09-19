@@ -2,6 +2,9 @@
 
 **Gota App** is a web application for managing informal loans. It allows users to create, update, fetch, and delete client records using a RESTful API built with Next.js, Prisma, and Supabase.
 
+![Texto alternativo](images/panel.initial.png)
+
+
 ## **Getting Started**
 
 ### **Prerequisites**
