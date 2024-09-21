@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { withClerkAuth } from '@/lib/clerkUtils';
+import { withClerkAuth } from '@/actions/clerkUtils';
 
 // GET ALL USERS
 export async function GET(request: NextRequest) {

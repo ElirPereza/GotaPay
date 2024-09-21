@@ -1,15 +1,15 @@
 "use client";
 
-import TransactionTable from "@/components/dashboard/cards/last-transaction";
+import TransactionTable from "@/components/panel/dashboard/cards/last-transaction";
 import LastTransaction, {
   Transaction,
-} from "@/components/dashboard/cards/last-transaction";
-import TotalCard from "@/components/dashboard/cards/totalcard";
+} from "@/components/panel/dashboard/cards/last-transaction";
+import TotalCard from "@/components/panel/dashboard/cards/totalcard";
 import WorkerDistributionChart, {
   WorkerData,
-} from "@/components/dashboard/charts/chartTotal";
-import IncomeCharts from "@/components/dashboard/charts/incomecharts";
-import SummaryChart from "@/components/dashboard/charts/summarychart";
+} from "@/components/panel/dashboard/charts/chartTotal";
+import IncomeCharts from "@/components/panel/dashboard/charts/incomecharts";
+import SummaryChart from "@/components/panel/dashboard/charts/summarychart";
 
 const dataCard = [
   { title: "Total Users", value: "10,928", change: "+12%" },

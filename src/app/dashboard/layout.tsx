@@ -1,5 +1,5 @@
-import { HeaderDashboard } from "@/components/dashboard/header";
-import Sidebar from "@/components/dashboard/sidebar";
+import { HeaderDashboard } from "@/components/panel/header";
+import Sidebar from "@/components/panel/sidebar";
 import { ReactNode } from "react";
 
 interface LayoutProps {
